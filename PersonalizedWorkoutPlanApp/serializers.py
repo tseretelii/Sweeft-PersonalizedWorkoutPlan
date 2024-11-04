@@ -63,16 +63,23 @@ class ExerciseSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class WorkoutSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())# With this code you don’t need to explicitly pass the user field in the request body when creating or updating objects.
+                                                                            # The user field will be populated automatically by Django REST Framework based on the authenticated user.
+
     class Meta:
         model = Workout
         fields = "__all__"
 
 class WorkoutPlanSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    
     class Meta:
         model = Workout
         fields = "__all__"
 
 class GoalSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Goal
         fields = "__all__"
