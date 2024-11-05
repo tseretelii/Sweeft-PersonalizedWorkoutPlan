@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',     # so we can use JWT Token
     'drf_yasg',                     # for swagger documentation
     'PersonalizedWorkoutPlanApp',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
