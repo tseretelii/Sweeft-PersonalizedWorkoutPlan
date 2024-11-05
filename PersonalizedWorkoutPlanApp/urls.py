@@ -27,5 +27,6 @@ router.register(r'WorkoutPlans', WorkoutPlanViewSet)
 router.register(r'Goals', GoalViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('create-my-exercise', CreateMyWorkOutPlan.as_view())
 ]
