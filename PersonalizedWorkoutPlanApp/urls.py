@@ -28,5 +28,6 @@ router.register(r'Goals', GoalViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('create-my-exercise', CreateMyWorkOutPlan.as_view())
+    path('create-my-exercise/', CreateMyWorkOutPlan.as_view()),
+    path('MyWorkouts/', MyWorkouts.as_view()),
 ]

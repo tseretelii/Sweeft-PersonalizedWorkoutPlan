@@ -60,15 +60,30 @@ class MuscleSerializer(serializers.ModelSerializer):
 class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
-        fields = "__all__"
+        fields = [
+            'name',
+            'exercise_type',
+            'description',
+            'instruction',
+            'target_muscles'
+        ]
 
 class WorkoutSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())# With this code you don’t need to explicitly pass the user field in the request body when creating or updating objects.
-                                                                            # The user field will be populated automatically by Django REST Framework based on the authenticated user.
-
+                                                                            # The user field will be populated automatically by Django REST Framework based on the authenticated user. 
+                                                                            # but when getting back data the user field is not included
+    exercise = ExerciseSerializer(read_only=True)   # Nested serializer to represent each exercise by its full data rather than just its ID
+                                                    # Because this is foreign key - many = False (by default), if this were ManyToMany - many = True
     class Meta:
         model = Workout
-        fields = "__all__"
+        fields = [
+            'user',
+            'exercise',
+            'distance',
+            'duration_minutes',
+            'repetition',
+            'workout_set'
+        ]
 
 class WorkoutPlanSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())

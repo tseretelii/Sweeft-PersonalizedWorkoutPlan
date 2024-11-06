@@ -42,7 +42,7 @@ class Workout(models.Model):#  This class represents a user's ability to create 
                             #  For example, a user can choose running and specify how long they want to run, 
                             #  or define the number of sets for an exercise, and so on.
     user = models.ForeignKey(AppUser, on_delete= models.CASCADE)
-    exercise = models.ForeignKey(Exercise, on_delete = models.CASCADE)
+    exercise = models.ForeignKey(Exercise, on_delete = models.CASCADE, related_name='exercise')
     distance = models.SmallIntegerField(null=True)
     duration_minutes = models.SmallIntegerField(null=True)
     repetition = models.SmallIntegerField(null=True)

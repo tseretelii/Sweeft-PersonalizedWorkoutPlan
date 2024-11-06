@@ -90,3 +90,13 @@ class CreateMyWorkOutPlan(APIView): # this view creates a Workout plan for a use
 #                 'workout': serializer_workout.data,
 #                 'rand_data': serializer_app_user.data
 #             })
+
+
+class MyWorkouts(APIView):
+    def get(self, request):
+        user_workouts = Workout.objects.filter(user = request.user)
+        if user_workouts.count() < 2:
+            workout_serializer = WorkoutSerializer(user_workouts)
+            return Response({'MyWorkouts': workout_serializer.data})
+        workout_serializer = WorkoutSerializer(user_workouts, many = True)
+        return Response({'MyWorkouts': workout_serializer.data})
