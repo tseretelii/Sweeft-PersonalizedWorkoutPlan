@@ -33,7 +33,7 @@ class Exercise(models.Model):
     exercise_type = models.CharField(max_length=20, choices=ExerciseType.choices)
     description = models.TextField()
     instruction = models.TextField()
-    target_muscles = models.ManyToManyField(Muscle)
+    target_muscles = models.ManyToManyField(Muscle, related_name='target_muscles')
     
     def __str__(self):
         return self.name

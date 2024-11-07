@@ -94,7 +94,10 @@ class CreateMyWorkOutPlan(APIView): # this view creates a Workout plan for a use
 
 class MyWorkouts(APIView):
     def get(self, request):
-        user_workouts = Workout.objects.filter(user = request.user)
+        user_workouts = Workout.objects.prefetch_related( # by adding prefetch_related we optimize sql queries by joining tables
+            'exercise',
+            'exercise__target_muscles'
+        ).filter(user = request.user)
         if user_workouts.count() < 2:
             workout_serializer = WorkoutSerializer(user_workouts)
             return Response({'MyWorkouts': workout_serializer.data})

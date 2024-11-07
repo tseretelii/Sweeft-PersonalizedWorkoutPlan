@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'drf_yasg',                     # for swagger documentation
     'PersonalizedWorkoutPlanApp',
     'django_extensions',
+    'silk',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = 'PersonalizedWorkoutPlan.urls'
