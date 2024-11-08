@@ -58,6 +58,9 @@ class MuscleSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class ExerciseSerializer(serializers.ModelSerializer):
+
+    target_muscles = MuscleSerializer(read_only=True, many=True)
+
     class Meta:
         model = Exercise
         fields = [

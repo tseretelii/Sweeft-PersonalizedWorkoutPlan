@@ -31,9 +31,16 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 class WorkoutViewSet(viewsets.ModelViewSet):
-    queryset = Workout.objects.all()
+    queryset = Workout.objects.prefetch_related(
+        'exercise',
+        'exercise__target_muscles'
+    ).all()
     serializer_class = WorkoutSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(user = self.request.user)
 
 class WorkoutPlanViewSet(viewsets.ModelViewSet):
     queryset = WorkoutPlan.objects.all()

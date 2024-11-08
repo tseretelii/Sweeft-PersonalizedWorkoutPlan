@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'drf_yasg',                     # for swagger documentation
     'PersonalizedWorkoutPlanApp',
     'django_extensions',
-    'silk',
+    'silk',                         # for viewing queries
 ]
 
 MIDDLEWARE = [
