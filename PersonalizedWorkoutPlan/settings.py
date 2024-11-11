@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',               # added for DRF
     'rest_framework_simplejwt',     # so we can use JWT Token
+    'corsheaders',
     'drf_yasg',                     # for swagger documentation
     'PersonalizedWorkoutPlanApp',
     'django_extensions',
@@ -55,6 +56,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'silk.middleware.SilkyMiddleware',
 ]
@@ -149,3 +152,5 @@ REST_FRAMEWORK = { # for JWT
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
 }
+
+CORS_ALLOW_ALL_ORIGINS = True

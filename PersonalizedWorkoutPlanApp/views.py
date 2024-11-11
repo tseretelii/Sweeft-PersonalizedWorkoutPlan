@@ -23,7 +23,7 @@ class AppUserViewSet(viewsets.ModelViewSet):
 class MuscleViewSet(viewsets.ModelViewSet):
     queryset = Muscle.objects.all()
     serializer_class = MuscleSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     queryset = Exercise.objects.all()
