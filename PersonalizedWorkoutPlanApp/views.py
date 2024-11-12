@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import *
 from .models import *
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from .workout_mode import WorkoutMode
 # Create your views here.
 
 class AppUserViewSet(viewsets.ModelViewSet):
@@ -74,7 +75,7 @@ class CreateMyWorkOutPlan(APIView): # this view creates a Workout plan for a use
             serializer_workout = WorkoutSerializer(query_set_for_workout)
             return Response({'exercises': serializer_exercise.data, 'workout': serializer_workout.data})
         
-
+#region My Custom Region
 # class CreateMyWorkOutPlan(APIView): # this is just me messing arount with the functions and serializations
 #     def post(self, request):
 #         goal = request.data['goal']
@@ -97,7 +98,7 @@ class CreateMyWorkOutPlan(APIView): # this view creates a Workout plan for a use
 #                 'workout': serializer_workout.data,
 #                 'rand_data': serializer_app_user.data
 #             })
-
+#endregion
 
 class MyWorkouts(APIView):
     def get(self, request):
@@ -110,3 +111,16 @@ class MyWorkouts(APIView):
             return Response({'MyWorkouts': workout_serializer.data})
         workout_serializer = WorkoutSerializer(user_workouts, many = True)
         return Response({'MyWorkouts': workout_serializer.data})
+    
+# under Development - very unstable!!!
+class StartWorkout(APIView):
+    def get(self, request):
+        workout = Workout.objects.prefetch_related(
+            'exercise',
+            'exercise__target_muscles'
+        ).get(
+            id = request.data.get('id')
+        )
+        workout_serilizer = WorkoutSerializer(workout)
+        WorkoutMode.start_workout(workout_serilizer)
+        return Response({'respnse': workout_serilizer.data})

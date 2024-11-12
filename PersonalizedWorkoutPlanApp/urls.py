@@ -30,4 +30,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('create-my-exercise/', CreateMyWorkOutPlan.as_view()),
     path('MyWorkouts/', MyWorkouts.as_view()),
+    path('StartWorkout/', StartWorkout.as_view()), # under Development - very unstable!!!
 ]
